@@ -20,16 +20,16 @@ function cargarNotas() {
 
 
             if (promedio >= 6) {
-            alert("Felicitaciones, usted aprobo la materia")
-        } else {
-            alert("No le alcanza para aprobar")
+                alert("Felicitaciones, usted aprobo la materia")
+            } else {
+                alert("No le alcanza para aprobar")
+            }
+
+
         }
 
-
     }
-
-}
-while (continuar !== "B")
+    while (continuar !== "B")
 
 
 
