@@ -43,7 +43,8 @@ h2 {
 .cards {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 15px;
+    margin: 20px auto;
+
 }
 
 .card {
@@ -73,4 +74,6 @@ main {
     background-color: rgb(16, 204, 16);
     color: rgb(7, 0, 0);
     cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
 }
