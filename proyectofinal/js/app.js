@@ -2,11 +2,12 @@ const carrito = [];
 const productos = [];
 
 class producto {
-  constructor(id, nombre, precio, stock) {
+  constructor(id, nombre, precio, stock, img) {
     this.id = id;
     this.nombre = nombre;
     this.precio = precio;
     this.stock = stock;
+    this.img = img;
   }
   sumarIva() {
     return (this.precio = this.precio * 1), 21;
@@ -16,17 +17,17 @@ class producto {
   }
 }
 
-const producto1 = new producto(1, "camiseta titular", 15000, 3);
+const producto1 = new producto(1, "camiseta titular", 15000, 3, "img/camiseta titular.webp");
 productos.push(producto1);
-const producto2 = new producto(2, "camiseta suplente", 15000, 4);
+const producto2 = new producto(2, "camiseta suplente", 15000, 4, "img/camiseta suplente.webp");
 productos.push(producto2);
-const producto3 = new producto(3, "short titular", 9000, 6);
+const producto3 = new producto(3, "short titular", 9000, 6, "img/short.webp");
 productos.push(producto3);
-const producto4 = new producto(4, "short suplente", 9000, 2);
+const producto4 = new producto(4, "short suplente", 9000, 2, "img/short suplente.webp");
 productos.push(producto4);
-const producto5 = new producto(5, "camiseta de arquero", 15000, 2);
+const producto5 = new producto(5, "camiseta de arquero", 15000, 2, "img/camiseta arquero.webp");
 productos.push(producto5);
-const producto6 = new producto(6, "gorra", 3000, 3);
+const producto6 = new producto(6, "gorra", 3000, 3, "img/gorra.webp");
 productos.push(producto6);
 
 function mostrarProductos() {
@@ -118,6 +119,23 @@ function comprar() {
   }
 }
 
-mostrarProductos();
+//DOM
+productos.forEach((producto) => {
+  let cards = document.querySelector(".cards")
+  let div = document.createElement("div")
+
+  div.innerHTML = `
+  <img src="${producto.img}">
+  <h3>${producto.nombre}</h3>
+  <p>$${producto.precio}</p>
+  <button class="btn">Agregar al Carrito</button>
+  `
+  div.className = "card"
+  cards.append(div)
+})
+
+
+
+/*mostrarProductos();
 comprar();
-mostrarCarrito();
+mostrarCarrito();*/
