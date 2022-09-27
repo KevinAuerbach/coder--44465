@@ -43,6 +43,7 @@ function agregarAlCarrito(producto) {
       img: producto.img,
       cantidad: 1
     })
+    
   }
 }
 
