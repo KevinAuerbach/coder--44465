@@ -153,3 +153,12 @@ main {
     font-size: 30px;
 }
 
+.toast {
+    background: rgb(11, 228, 22);
+    color: #000;
+}
+
+.toast_red {
+    background: rgb(227, 6, 6);
+    color: #fff;
+}

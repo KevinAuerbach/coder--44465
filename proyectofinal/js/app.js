@@ -14,6 +14,11 @@ vaciarCarrito.addEventListener("click", () => {
   carrito.length = 0;
   actualizarCarrito();
   localStorage.removeItem("carrito");
+  Toastify({
+    text: "Se vacio el carrito!",
+    className: "toast_red",
+    duration: 2500
+    }).showToast();
 });
 
 //Modal
@@ -131,6 +136,11 @@ function eliminarDelCarrito(producto) {
   let indice = carrito.indexOf(buscado);
   carrito.splice(indice, 1);
   actualizarCarrito();
+  Toastify({
+    text: "Se elimino el producto del carrito!",
+    className: "toast_red",
+    duration: 2500
+    }).showToast();
 }
 
 //DOM
@@ -150,5 +160,10 @@ productos.forEach((producto) => {
   const boton = document.getElementById(producto.id);
   boton.addEventListener("click", (e) => {
     agregarAlCarrito(producto);
+    Toastify({
+      text: "Se agrego el producto al carrito!",
+      className: "toast",
+      duration: 2500,
+    }).showToast();
   });
 });
