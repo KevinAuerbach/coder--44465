@@ -97,10 +97,7 @@ function agregarAlCarrito(producto) {
     buscarProducto.cantidad = buscarProducto.cantidad + 1;
   } else {
     carrito.push({
-      id: producto.id,
-      nombre: producto.nombre,
-      precio: producto.precio,
-      img: producto.img,
+      ...producto,
       cantidad: 1,
     });
   }
@@ -139,13 +136,13 @@ function eliminarDelCarrito(producto) {
 //DOM
 
 productos.forEach((producto) => {
+  const { id, nombre, precio, stock, img } = producto;
   let div = document.createElement("div");
-
   div.innerHTML = `
-  <img src="${producto.img}">
-  <h3>${producto.nombre}</h3>
-  <p>$${producto.precio}</p>
-  <button id=${producto.id} class="btn">Agregar al Carrito</button>
+  <img src="${img}">
+  <h3>${nombre}</h3>
+  <p>$${precio}</p>
+  <button id=${id} class="btn">Agregar al Carrito</button>
   `;
   div.className = "card";
   cards.append(div);

@@ -45,7 +45,14 @@ h2 {
     justify-content: space-between;
     flex-wrap: wrap;
     margin: 0 auto;
+}
 
+.cards_carrito {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 auto;
 }
 
 .card {
