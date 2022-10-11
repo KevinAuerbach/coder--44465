@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,300&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 
@@ -18,23 +19,27 @@
         <div class="container nav">
             <a href="index.html"><img src="img/logo.png"></a>
             <h1>Tienda del Club Atletico River Plate</h1>
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="64"
-                height="64" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                <circle cx="6" cy="19" r="2" />
-                <circle cx="17" cy="19" r="2" />
-                <path d="M17 17h-11v-14h-2" />
-                <path d="M6 5l14 1l-1 7h-13" />
-            </svg>
+            <div class="carritoLogo">
+                <svg xmlns="http://www.w3.org/2000/svg" id="carrito" class="icon icon-tabler icon-tabler-shopping-cart"
+                    width="64" height="64" viewBox="0 0 24 24" stroke-width="2" stroke="#ffffff" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <circle cx="6" cy="19" r="2" />
+                    <circle cx="17" cy="19" r="2" />
+                    <path d="M17 17h-11v-14h-2" />
+                    <path d="M6 5l14 1l-1 7h-13" />
+                </svg><span class="contador">0</span>
+            </div>
+
         </div>
     </header>
 
     <main>
         <section class="container">
             <h2>Productos</h2>
+            <!-- <input id="buscador_productos" class="buscador" type="text" placeholder="Buscar Producto"> -->
             <div class="cards">
-                <div class="card">
+                <!-- <div class="card">
                     <img src="img/camiseta titular.webp" alt="">
                     <h3>Camiseta Titular</h3>
                     <p>$15000</p>
@@ -69,13 +74,25 @@
                     <h3>Gorra</h3>
                     <p>$3000</p>
                     <button class="btn">Agregar al Carrito</button>
+                </div> -->
+            </div>
+        </section>
+
+        <section id="modal_overlay" class="modal">
+            <div class="modal_container">
+                <div id="cards_carrito" class="cards_carrito"></div>
+                <p class="contenedor_total">Precio Total: <span class="total">0<span></p>
+                <div class="botones">
+                    <button class="finalizar_compra btn">Comprar</button>
+                    <button id="vaciar_carrito" class="btn">Vaciar Carrito</button>
+                    <button class="modal_close btn">Cerrar</button>
                 </div>
             </div>
-            
         </section>
     </main>
 
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="js/app.js"></script>
 </body>
 

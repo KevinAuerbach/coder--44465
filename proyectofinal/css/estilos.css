@@ -42,18 +42,28 @@ h2 {
 
 .cards {
     display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin-top: 15px;
+    margin: 0 auto;
+}
+
+.cards_carrito {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 auto;
 }
 
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    text-align: center;
     width: 300px;
     height: 300px;
     margin: 50px 15px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .card h3 {
@@ -70,7 +80,85 @@ main {
 
 .btn {
     padding: 5px 30px;
+    margin-top: 10px;
     background-color: rgb(16, 204, 16);
     color: rgb(7, 0, 0);
     cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.carritoLogo {
+    display: flex;
+    align-items: center;
+}
+
+.contador {
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    display: inline-block;
+    font-weight: 400;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #111111bd;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal_container {
+    margin: auto;
+    width: 90%;
+    background-color: #fff;
+    border-radius: 6px;
+    max-width: 600px;
+    max-height: 90%;
+    padding: 3em 2,5em;
+    display: grid;
+    gap: 1em;
+    place-items: center;
+    grid-auto-columns: 100%;
+    overflow: scroll;
+}
+
+.modal_show {
+    opacity: 1;
+    pointer-events: unset;
+}
+
+.buscador {
+    width: 20%;
+    border: 2px, solid, #000;
+    text-align: center;
+    margin: 10px;
+}
+
+.eliminar {
+    background-color: rgb(238, 10, 10);
+}
+
+.contenedor_total {
+    display: block;
+    margin-top: 70px;
+    font-weight: 700;
+}
+
+.contenedor_total span {
+    font-size: 30px;
+}
+
+.toast {
+    background: rgb(11, 228, 22);
+    color: #000;
+}
+
+.toast_red {
+    background: rgb(227, 6, 6);
+    color: #fff;
 }
