@@ -17,8 +17,8 @@ vaciarCarrito.addEventListener("click", () => {
   Toastify({
     text: "Se vacio el carrito!",
     className: "toast_red",
-    duration: 2500
-    }).showToast();
+    duration: 2500,
+  }).showToast();
 });
 
 //Modal
@@ -56,7 +56,6 @@ const producto1 = new producto(
   3,
   "img/camiseta titular.webp",
 );
-productos.push(producto1);
 const producto2 = new producto(
   2,
   "camiseta suplente",
@@ -64,9 +63,7 @@ const producto2 = new producto(
   4,
   "img/camiseta suplente.webp",
 );
-productos.push(producto2);
 const producto3 = new producto(3, "short titular", 9000, 6, "img/short.webp");
-productos.push(producto3);
 const producto4 = new producto(
   4,
   "short suplente",
@@ -74,7 +71,6 @@ const producto4 = new producto(
   2,
   "img/short suplente.webp",
 );
-productos.push(producto4);
 const producto5 = new producto(
   5,
   "camiseta de arquero",
@@ -82,9 +78,33 @@ const producto5 = new producto(
   2,
   "img/camiseta arquero.webp",
 );
-productos.push(producto5);
 const producto6 = new producto(6, "gorra", 3000, 3, "img/gorra.webp");
-productos.push(producto6);
+const producto7 = new producto(7, "medias titular", 3500, 4, "img/medias.webp");
+const producto8 = new producto(
+  8,
+  "medias suplente",
+  3500,
+  2,
+  "img/medias sup.webp",
+);
+const producto9 = new producto(
+  9,
+  "short arquero",
+  9500,
+  5,
+  "img/short arquero.webp",
+);
+productos.push(
+  producto1,
+  producto2,
+  producto3,
+  producto4,
+  producto5,
+  producto6,
+  producto7,
+  producto8,
+  producto9,
+);
 
 //Obtengo el localstorage al inciar
 document.addEventListener("DOMContentLoaded", () => {
@@ -112,13 +132,14 @@ function agregarAlCarrito(producto) {
 function actualizarCarrito() {
   carritoCards.innerHTML = "";
   carrito.forEach((producto) => {
+    const { id, nombre, precio, img } = producto;
     let div = document.createElement("div");
     div.innerHTML = `
-      <img src="${producto.img}">
-      <h3>${producto.nombre}</h3>
+      <img src="${img}">
+      <h3>${nombre}</h3>
       <p>Cantidad:${producto.cantidad}</p>
-      <p>$${producto.precio}</p>
-      <button id="eliminar${producto.id}" class="btn eliminar">Eliminar</button>
+      <p>$${precio}</p>
+      <button id="eliminar${id}" class="btn eliminar">Eliminar</button>
       `;
     localStorage.setItem("carrito", JSON.stringify(carrito));
     carritoCards.append(div);
@@ -139,14 +160,14 @@ function eliminarDelCarrito(producto) {
   Toastify({
     text: "Se elimino el producto del carrito!",
     className: "toast_red",
-    duration: 2500
-    }).showToast();
+    duration: 2500,
+  }).showToast();
 }
 
-//DOM
+//DOM renderizo productos
 
 productos.forEach((producto) => {
-  const { id, nombre, precio, stock, img } = producto;
+  const { id, nombre, precio, img } = producto;
   let div = document.createElement("div");
   div.innerHTML = `
   <img src="${img}">
