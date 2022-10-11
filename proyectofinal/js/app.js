@@ -8,9 +8,10 @@ const span = document.querySelector(".contador");
 const cards = document.querySelector(".cards");
 const carritoCards = document.getElementById("cards_carrito");
 const precioFinal = document.querySelector(".total");
+const seachBar = document.querySelector(".search");
 
 //Evento para vaciar el carrito
-vaciarCarrito.addEventListener("click", () => {
+vaciarCarrito.addEventListener("", () => {
   carrito.length = 0;
   actualizarCarrito();
   localStorage.removeItem("carrito");
@@ -19,6 +20,15 @@ vaciarCarrito.addEventListener("click", () => {
     className: "toast_red",
     duration: 2500,
   }).showToast();
+});
+
+// Search
+seachBar.addEventListener("keyup", (e) => {
+  let filteredProductos = productos.filter((product) => {
+    return product.nombre.match(e.target.value); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
+  });
+  cards.innerHTML = null; //* Borra todas las cartas
+  renderCards(filteredProductos); //* Llama a la funcion render con los productos filtrados
 });
 
 //Modal
@@ -33,7 +43,7 @@ cerrarModal.addEventListener("click", (e) => {
 
 //Declaracion de variables
 let carrito = [];
-const productos = [];
+let productos = [];
 
 //Construccion de objetos
 class producto {
@@ -165,26 +175,30 @@ function eliminarDelCarrito(producto) {
 }
 
 //DOM renderizo productos
-
-productos.forEach((producto) => {
-  const { id, nombre, precio, img } = producto;
-  let div = document.createElement("div");
-  div.innerHTML = `
+function renderCards(productos) {
+  //* Le llegan los productos por parametros
+  productos.forEach(({ id, nombre, precio, img }) => {
+    //* destructuring dentro de la arrow
+    let div = document.createElement("div");
+    div.innerHTML = `
   <img src="${img}">
   <h3>${nombre}</h3>
   <p>$${precio}</p>
   <button id=${id} class="btn">Agregar al Carrito</button>
   `;
-  div.className = "card";
-  cards.append(div);
+    div.className = "card";
+    cards.append(div);
 
-  const boton = document.getElementById(producto.id);
-  boton.addEventListener("click", (e) => {
-    agregarAlCarrito(producto);
-    Toastify({
-      text: "Se agrego el producto al carrito!",
-      className: "toast",
-      duration: 2500,
-    }).showToast();
+    const boton = document.getElementById(id);
+    boton.addEventListener("click", (e) => {
+      agregarAlCarrito({ id, nombre, precio, img });
+      Toastify({
+        text: "Se agrego el producto al carrito!",
+        className: "toast",
+        duration: 2500,
+      }).showToast();
+    });
   });
-});
+}
+
+renderCards(productos); //* LLamo en el inicio con los productos
