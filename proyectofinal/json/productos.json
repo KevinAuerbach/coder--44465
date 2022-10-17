@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "nombre": "Camiseta Titular",
+    "precio": 15000,
+    "img": "img/camiseta titular.webp"
+  },
+  {
+    "id": 2,
+    "nombre": "Camiseta Suplente",
+    "precio": 15000,
+    "img": "img/camiseta suplente.webp"
+  },
+  {
+    "id": 3,
+    "nombre": "Short Titular",
+    "precio": 9000,
+    "img": "img/short.webp"
+  },
+  {
+    "id": 4,
+    "nombre": "Short Suplente",
+    "precio": 9000,
+    "img": "img/short suplente.webp"
+  },
+  {
+    "id": 5,
+    "nombre": "Camiseta de Arquero",
+    "precio": 15000,
+    "img": "img/camiseta arquero.webp"
+  },
+  {
+    "id": 6,
+    "nombre": "Gorra",
+    "precio": 3000,
+    "img": "img/gorra.webp"
+  },
+  {
+    "id": 7,
+    "nombre": "Medias Titular",
+    "precio": 3500,
+    "img": "img/medias.webp"
+  },
+  {
+    "id": 8,
+    "nombre": "Medias Suplente",
+    "precio": 3500,
+    "img": "img/medias sup.webp"
+  },
+  {
+    "id": 9,
+    "nombre": "Short Arquero",
+    "precio": 9500,
+    "img": "img/short arquero.webp"
+  }
+]

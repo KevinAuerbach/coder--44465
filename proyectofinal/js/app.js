@@ -11,7 +11,7 @@ const precioFinal = document.querySelector(".total");
 const seachBar = document.querySelector(".search");
 
 //Evento para vaciar el carrito
-vaciarCarrito.addEventListener("", () => {
+vaciarCarrito.addEventListener("click", () => {
   carrito.length = 0;
   actualizarCarrito();
   localStorage.removeItem("carrito");
@@ -23,13 +23,18 @@ vaciarCarrito.addEventListener("", () => {
 });
 
 // Search
-seachBar.addEventListener("keyup", (e) => {
-  let filteredProductos = productos.filter((product) => {
-    return product.nombre.match(e.target.value); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
+const buscador = async () => {
+  let response = await fetch("json/productos.json")
+  let data = await response.json()
+  seachBar.addEventListener("keyup", (e) => {
+    let filteredProductos = data.filter((product) => {
+      return product.nombre.match(e.target.value); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
+    });
+    cards.innerHTML = null; //* Borra todas las cartas
+    renderCards(filteredProductos); //* Llama a la funcion render con los productos filtrados
   });
-  cards.innerHTML = null; //* Borra todas las cartas
-  renderCards(filteredProductos); //* Llama a la funcion render con los productos filtrados
-});
+}
+
 
 //Modal
 carritoBtn.addEventListener("click", (e) => {
@@ -43,7 +48,6 @@ cerrarModal.addEventListener("click", (e) => {
 
 //Declaracion de variables
 let carrito = [];
-let productos = [];
 
 //Construccion de objetos
 class producto {
@@ -58,63 +62,6 @@ class producto {
     return (this.precio = this.precio * 1), 21;
   }
 }
-
-const producto1 = new producto(
-  1,
-  "camiseta titular",
-  15000,
-  3,
-  "img/camiseta titular.webp",
-);
-const producto2 = new producto(
-  2,
-  "camiseta suplente",
-  15000,
-  4,
-  "img/camiseta suplente.webp",
-);
-const producto3 = new producto(3, "short titular", 9000, 6, "img/short.webp");
-const producto4 = new producto(
-  4,
-  "short suplente",
-  9000,
-  2,
-  "img/short suplente.webp",
-);
-const producto5 = new producto(
-  5,
-  "camiseta de arquero",
-  15000,
-  2,
-  "img/camiseta arquero.webp",
-);
-const producto6 = new producto(6, "gorra", 3000, 3, "img/gorra.webp");
-const producto7 = new producto(7, "medias titular", 3500, 4, "img/medias.webp");
-const producto8 = new producto(
-  8,
-  "medias suplente",
-  3500,
-  2,
-  "img/medias sup.webp",
-);
-const producto9 = new producto(
-  9,
-  "short arquero",
-  9500,
-  5,
-  "img/short arquero.webp",
-);
-productos.push(
-  producto1,
-  producto2,
-  producto3,
-  producto4,
-  producto5,
-  producto6,
-  producto7,
-  producto8,
-  producto9,
-);
 
 //Obtengo el localstorage al inciar
 document.addEventListener("DOMContentLoaded", () => {
@@ -175,9 +122,11 @@ function eliminarDelCarrito(producto) {
 }
 
 //DOM renderizo productos
-function renderCards(productos) {
+const renderCards = async () => {
+  let response = await fetch("json/productos.json")
+  let data = await response.json()
   //* Le llegan los productos por parametros
-  productos.forEach(({ id, nombre, precio, img }) => {
+  data.forEach(({ id, nombre, precio, img }) => {
     //* destructuring dentro de la arrow
     let div = document.createElement("div");
     div.innerHTML = `
@@ -201,4 +150,4 @@ function renderCards(productos) {
   });
 }
 
-renderCards(productos); //* LLamo en el inicio con los productos
+renderCards(); //* LLamo en el inicio con los productos
