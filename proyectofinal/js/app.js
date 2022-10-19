@@ -22,20 +22,6 @@ vaciarCarrito.addEventListener("click", () => {
   }).showToast();
 });
 
-// Search
-const buscador = async () => {
-  let response = await fetch("json/productos.json")
-  let data = await response.json()
-  seachBar.addEventListener("keyup", (e) => {
-    let filteredProductos = data.filter((product) => {
-      return product.nombre.match(e.target.value); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
-    });
-    cards.innerHTML = null; //* Borra todas las cartas
-    renderCards(filteredProductos); //* Llama a la funcion render con los productos filtrados
-  });
-}
-
-
 //Modal
 carritoBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -48,20 +34,6 @@ cerrarModal.addEventListener("click", (e) => {
 
 //Declaracion de variables
 let carrito = [];
-
-//Construccion de objetos
-class producto {
-  constructor(id, nombre, precio, stock, img) {
-    this.id = id;
-    this.nombre = nombre;
-    this.precio = precio;
-    this.stock = stock;
-    this.img = img;
-  }
-  sumarIva() {
-    return (this.precio = this.precio * 1), 21;
-  }
-}
 
 //Obtengo el localstorage al inciar
 document.addEventListener("DOMContentLoaded", () => {
@@ -123,31 +95,57 @@ function eliminarDelCarrito(producto) {
 
 //DOM renderizo productos
 const renderCards = async () => {
-  let response = await fetch("json/productos.json")
-  let data = await response.json()
-  //* Le llegan los productos por parametros
-  data.forEach(({ id, nombre, precio, img }) => {
-    //* destructuring dentro de la arrow
-    let div = document.createElement("div");
-    div.innerHTML = `
-  <img src="${img}">
-  <h3>${nombre}</h3>
-  <p>$${precio}</p>
-  <button id=${id} class="btn">Agregar al Carrito</button>
-  `;
-    div.className = "card";
-    cards.append(div);
+  try {
+    let response = await fetch("json/productos.json");
+    let data = await response.json();
+    //* Le llegan los productos por parametros
+    data.forEach(({ id, nombre, precio, img }) => {
+      //* destructuring dentro de la arrow
+      let div = document.createElement("div");
+      div.innerHTML = `
+      <img src="${img}">
+      <h3>${nombre}</h3>
+      <p>$${precio}</p>
+      <button id=${id} class="btn">Agregar al Carrito</button>
+      `;
+      div.className = "card";
+      cards.append(div);
 
-    const boton = document.getElementById(id);
-    boton.addEventListener("click", (e) => {
-      agregarAlCarrito({ id, nombre, precio, img });
-      Toastify({
-        text: "Se agrego el producto al carrito!",
-        className: "toast",
-        duration: 2500,
-      }).showToast();
+      const boton = document.getElementById(id);
+      boton.addEventListener("click", (e) => {
+        agregarAlCarrito({
+          id,
+          nombre,
+          precio,
+          img,
+        });
+        Toastify({
+          text: "Se agrego el producto al carrito!",
+          className: "toast",
+          duration: 2500,
+        }).showToast();
+      });
     });
-  });
-}
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 renderCards(); //* LLamo en el inicio con los productos
+
+// Search
+const buscador = async () => {
+  try {
+    let response = await fetch("json/productos.json");
+    let data = await response.json();
+    seachBar.addEventListener("keyup", (e) => {
+      let filteredProductos = data.filter((product) => {
+        return product.nombre.match(e.target.value); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
+      });
+      cards.innerHTML = null; //* Borra todas las cartas
+      renderCards(filteredProductos); //* Llama a la funcion render con los productos filtrados
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
