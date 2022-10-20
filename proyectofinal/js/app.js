@@ -61,7 +61,12 @@ function agregarAlCarrito(producto) {
 function actualizarCarrito() {
   carritoCards.innerHTML = "";
   carrito.forEach((producto) => {
-    const { id, nombre, precio, img } = producto;
+    const {
+      id,
+      nombre,
+      precio,
+      img
+    } = producto;
     let div = document.createElement("div");
     div.innerHTML = `
       <img src="${img}">
@@ -94,12 +99,54 @@ function eliminarDelCarrito(producto) {
 }
 
 //DOM renderizo productos
-const renderCards = async () => {
-  try {
-    let response = await fetch("json/productos.json");
-    let data = await response.json();
-    //* Le llegan los productos por parametros
-    data.forEach(({ id, nombre, precio, img }) => {
+const renderCards = async (productosFiltrados) => {
+  if (!productosFiltrados) {
+    try {
+      let response = await fetch("json/productos.json");
+      let data = await response.json();
+      //* Le llegan los productos por parametros
+      data.forEach(({
+        id,
+        nombre,
+        precio,
+        img
+      }) => {
+        //* destructuring dentro de la arrow
+        let div = document.createElement("div");
+        div.innerHTML = `
+        <img src="${img}">
+        <h3>${nombre}</h3>
+        <p>$${precio}</p>
+        <button id=${id} class="btn">Agregar al Carrito</button>
+        `;
+        div.className = "card";
+        cards.append(div);
+
+        const boton = document.getElementById(id);
+        boton.addEventListener("click", (e) => {
+          agregarAlCarrito({
+            id,
+            nombre,
+            precio,
+            img,
+          });
+          Toastify({
+            text: "Se agrego el producto al carrito!",
+            className: "toast",
+            duration: 2500,
+          }).showToast();
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    productosFiltrados.forEach(({
+      id,
+      nombre,
+      precio,
+      img
+    }) => {
       //* destructuring dentro de la arrow
       let div = document.createElement("div");
       div.innerHTML = `
@@ -126,8 +173,6 @@ const renderCards = async () => {
         }).showToast();
       });
     });
-  } catch (error) {
-    console.log(error);
   }
 };
 
@@ -140,12 +185,14 @@ const buscador = async () => {
     let data = await response.json();
     seachBar.addEventListener("keyup", (e) => {
       let filteredProductos = data.filter((product) => {
-        return product.nombre.match(e.target.value); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
+        return product.nombre.toLowerCase().match(e.target.value.toLowerCase()); //* busca en ccada producto, esta searchbar en KEY SENSITIVE
       });
-      cards.innerHTML = null; //* Borra todas las cartas
+      cards.innerHTML = ""; //* Borra todas las cartas
       renderCards(filteredProductos); //* Llama a la funcion render con los productos filtrados
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+buscador();
